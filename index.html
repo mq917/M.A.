@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | M.A</title>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
+	<link href="css/css2css/css2.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/allmincss/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #0a192f;
+            color: #8892b0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+		
+		a {
+			color: #368f7a;
+			text-decoration: none;
+		}
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            z-index: 2;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #0a192fcc;
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 100;
+			left: 0;
+			right: 0;
+			background-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: right;
+            gap: 2rem;
+            list-style: none;
+            padding: 0 1rem;
+        }
+
+        nav a {
+            color: #368f7a;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transform: translateZ(0);
+        }
+
+        nav a:hover {
+            background: #112240;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+        }
+
+        section {
+            margin: 8rem 0;
+            scroll-margin-top: 80px;
+        }
+
+        h1, h2, h3 {
+            color: #ccd6f6;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 6rem;
+        }
+
+        .project-card {
+            background: #112240;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        box-shadow 0.4s ease;
+            box-shadow: 0 10px 30px -15px #020c1b;
+			background-color: rgba(17, 34, 64, 0.8);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px #020c1b;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .tech-item {
+            background: #233554;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+        }
+
+        .tech-item:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(100, 255, 218, 0.3);
+        }
+
+        .competency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .certification-item {
+            background: #112240;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+			background-color: rgba(17, 34, 64, 0.8);
+        }
+
+        .project-details {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+            border-left: 2px solid #28a5c1;
+        }
+
+        .quality-list {
+            columns: 2;
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .hero {
+                padding-top: 8rem;
+                min-height: calc(100vh - 120px);
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .quality-list {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#about" data-translate="nav.about">About</a></li>
+                <li><a href="#competencies" data-translate="nav.competencies">Competencies</a></li>
+                <li><a href="#projects" data-translate="nav.projects">Projects</a></li>
+                <li><a href="#certifications" data-translate="nav.certifications">Certifications</a></li>
+                <li><a href="#contact" data-translate="nav.contact">Contact</a></li>
+				<button id="lang-btn" aria-label="Language switcher" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">
+					<span id="lang-flag">🇬🇧</span>
+				</button>
+            </ul>
+        </nav>
+
+        <section class="hero" id="about">
+            <h2><i class="fas fa-user-tie"></i> <span data-translate="hero.1">Professional Portfolio</span></h2>
+            <!-- <h1 data-translate="hero.2">M.A.</h1> -->
+            <p class="highlight" data-translate="hero.3" >Versatile IT Specialist | Infrastructure Architect | Technical Expert</p>
+            <div class="tech-stack">
+                <div class="tech-item"><i class="fas fa-cloud" ></i> <span data-translate="hero.4">Virtualization</span></div>
+                <div class="tech-item"><i class="fas fa-shield-alt" ></i> <span data-translate="hero.5">Security</span></div>
+                <div class="tech-item"><i class="fas fa-network-wired" ></i> <span data-translate="hero.6">Networking</span></div>
+                <div class="tech-item"><i class="fas fa-robot"></i> <span data-translate="hero.7">Automation</span></div>
+            </div>
+			 <p class="highlight"><br><span  data-translate="hero.8">I am a well-rounded IT specialist with over 10 years of experience in information technology. Proficient in Linux systems, Windows OS, experience with Proxmox, VMware, networking, and cybersecurity tools. Quick to learn new technologies and eager to grow in software testing, IT security, and other fields essential for collaboration and development as a versatile specialist. Fluent in Russian, Azerbaijani, and English (B2).</span></p>
+        </section>
+
+        <section id="competencies">
+            <h2><i class="fas fa-layer-group" ></i> <span data-translate="hero.9">Key Competencies</span></h2>
+            <div class="competency-grid">
+                <div class="project-card">
+                    <h3><i class="fas fa-server"></i> <span data-translate="hero.10">Virtualization</span></h3>
+                    <ul>
+                        <li>Proxmox VE: Clusters with Ceph</li>
+                        <li>VMware vSphere: High Availability</li>
+                        <li>Docker & Kubernetes</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-graduation-cap"></i> <span data-translate="hero.14">Continuous Learning</span></h3>
+                    <ul>
+                        <li data-translate="hero.15">Willingness to continuously improve skills and stay up-to-date with new IT technologies and trends</li>
+                    </ul>
+                </div>
+                <div class="project-card">
+                    <h3><i class="fas fa-brain"></i> <span data-translate="hero.16">Analytical Thinking</span></h3>
+                    <ul>
+                        <li data-translate="hero.17">Ability to analyze complex situations, identify problems, and propose solutions</li>
+                    </ul>
+                </div><div class="project-card">
+                    <h3><i class="fas fa-tools"></i> <span data-translate="hero.18">Administration</span></h3>
+                    <ul>
+                        <li>Linux/Windows Server</li>
+                        <li>Ansible, PowerShell</li>
+                        <li>Zabbix, Prometheus</li>
+                    </ul>
+                </div>
+                <div class="project-card">
+                    <h3><i class="fas fa-lightbulb"></i> <span data-translate="hero.22">Creativity & Innovative Thinking</span></h3>
+                    <ul>
+                        <li data-translate="hero.23">Ability to generate new ideas and approaches to problem-solving</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-comment"></i> <span data-translate="hero.24">Communication</h3>
+                    <ul>
+                        <li data-translate="hero.25">Ability to clearly and concisely express thoughts, both orally and in writing, for effective interaction with colleagues, clients, and management</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-user-group"></i> <span data-translate="hero.26">Teamwork</h3>
+                    <ul>
+                        <li data-translate="hero.27">Ability to work in a team, interact effectively with colleagues, and achieve common goals</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-magnifying-glass"></i> <span data-translate="hero.28">System Analysis</h3>
+                    <ul>
+                        <li data-translate="hero.29">Ability to analyze system problems and propose solutions</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-shield"></i> <span data-translate="hero.30">Information Security</span></h3>
+                    <ul>
+                        <li data-translate="hero.31">Knowledge of principles and methods for protecting information from cyber threats and hacker attacks</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-code"></i> <span data-translate="hero.32">Software Development</span></h3>
+                    <ul>
+                        <li data-translate="hero.33">Ability to develop software, including frontend, backend, and mobile applications</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-database"></i> <span data-translate="hero.34">Databases</span></h3>
+                    <ul>
+                        <li data-translate="hero.35">Ability to work with various databases (e.g., SQL, NoSQL) for data storage and processing</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-desktop"></i> <span data-translate="hero.36">Operating Systems</span></h3>
+                    <ul>
+                        <li data-translate="hero.37">Knowledge of various operating systems (e.g., Windows, Linux, macOS) for administration and development</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-laptop-code"></i> <span data-translate="hero.38">Programming Languages</span></h3>
+                    <ul>
+                        <li data-translate="hero.39">Knowledge of various programming languages (e.g., Python, JavaScript, Delphi, C++) for developing different applications</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-terminal"></i> <span data-translate="hero.40">Automation & Scripting</span></h3>
+                    <ul>
+                        <li>Bash</li>
+                        <li>PowerShell</li>
+                        <li>Arduino IoT</li>
+						<li>Acronis backup automation</li>
+                    </ul>
+                </div>
+				<div class="project-card">
+                    <h3><i class="fas fa-toolbox"></i> <span data-translate="hero.45">Diagnostics & Repair</span></h3>
+                    <ul>
+                        <li data-translate="hero.46">Troubleshooting Hardware Issues</li>
+						<li data-translate="hero.47">Working with Soldering Stations</li>
+						<li data-translate="hero.48">Flashing Microcontrollers</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2><i class="fas fa-tasks"></i> <span data-translate="hero.49">Sample Projects</span></h2>
+            <div class="project-card">
+                <h3><i class="fas fa-database"></i> <span data-translate="hero.50">Server Consolidation</span></h3>
+                <div class="project-details">
+                    <p data-translate="hero.51">Migrated 50+ servers to a Proxmox cluster</p>
+                    <div class="tech-stack">
+                        <div class="tech-item">Ceph Storage</div>
+                        <div class="tech-item">High Availability</div>
+                    </div>
+                    <p data-translate="hero.54">Result: 40% Cost Reduction</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <h3><i class="fas fa-check-double"></i> <span data-translate="hero.55">Corporate Solution</span></h3>
+                <div class="project-details">
+                    <p data-translate="hero.56">Managed and configured servers and network equipment (Linux/Windows, Proxmox, VMware)</p>
+					<p data-translate="hero.57">Developed and integrated backup automation scripts (Acronis, Bash script, etc.)</p>
+					<p data-translate="hero.58">Designed secure corporate Wi-Fi and VLAN networks, analyzed traffic (Unifi, Wireshark)</p>
+					<p data-translate="hero.59">Conducted cybersecurity tests and provided recommendations, trained staff on security policies</p>
+                    <div class="tech-stack">
+						<div class="tech-item">Proxmox</div>
+                        <div class="tech-item">VMware</div>
+						<div class="tech-item">Acronis</div>
+                        <div class="tech-item">Bash script</div>
+						<div class="tech-item">Wireshark</div>
+                    </div>
+                </div>
+            </div>
+			<div class="project-card">
+                <h3><i class="fas fa-network-wired"></i> <span data-translate="hero.65">Special Project</span></h3>
+                <div class="project-details">
+                    <p data-translate="hero.66">Connected servers, switches, PCs, created an internal network, installed specialized Linux software and configured it for full operation</p>
+                    <div class="tech-stack">
+					    <div class="tech-item">Cisco</div>
+                        <div class="tech-item">Ubuntu</div>
+						<div class="tech-item">Debian</div>
+                    </div>
+                </div>
+            </div>
+			<div class="project-card">
+                <h3><i class="fas fa-chart-line"></i> <span data-translate="hero.70">Monitoring System</span></h3>
+                <div class="project-details">
+                    <p data-translate="hero.71">Zabbix + Grafana for 200+ devices</p>
+                    <div class="tech-stack">
+                        <div class="tech-item">Telegram Alerts</div>
+                        <div class="tech-item">SLA Reporting</div>
+                    </div>
+                </div>
+            </div>
+			<div class="project-card">
+                <h3><i class="fas fa-globe"></i> <span data-translate="hero.74">Business Website</span></h3>
+                <div class="project-details">
+                    <p data-translate="hero.75">Created website, leased hosting, leased domain</p>
+                    <div class="tech-stack">
+                        <div class="tech-item">Website</div>
+                        <div class="tech-item">Technical support</div>
+                    </div>
+                </div>
+            </div>
+			<div class="project-card">
+                <h3><i class="fas fa-phone"></i> <span data-translate="hero.78">IP Telephony</span></h3>
+                <div class="project-details">
+                    <p data-translate="hero.79">Implemented Asterisk on server hardware, configured and connected communication devices</p>
+                    <div class="tech-stack">
+                        <div class="tech-item">Asterisk</div>
+                        <div class="tech-item">IP telephony</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications">
+            <h2><i class="fas fa-certificate"></i> <span data-translate="hero.82">Education & Certifications</span></h2>
+			<div class="certification-item">
+                <i class="fab fa-redhat fa-2x"></i>
+                <div>
+                    <h3>Red Hat Certified Engineer</h3>
+                    <p>RHCE</p>
+                </div>
+            </div>
+			<div class="certification-item">
+                <i class="fab fa-redhat fa-2x"></i>
+                <div>
+                    <h3>Red Hat Certified System Administrator</h3>
+                    <p>RHCSA</p>
+                </div>
+            </div>
+			<div class="certification-item">
+                <i class="fas fa-file-code fa-2x"></i>
+                <div>
+                    <h3>Web Development</h3>
+                    <p>Front-End</p>
+                </div>
+            </div>
+			<div class="certification-item">
+                <i class="fas fa-user-graduate fa-2x"></i>
+                <div>
+                    <h3>Information Technology</h3>
+                    <p>Bachelor's degree</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2><i class="fas fa-envelope"></i> <span data-translate="hero.91">Contact</span></h2>
+            <div class="tech-stack">
+                <a href="mailto:ma.baku@hotmail.com" class="tech-item">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="https://linkedin.com" class="tech-item">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://github.com" class="tech-item">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+		const translations = {
+    en: {
+      "nav.about": "About",
+      "nav.competencies": "Competencies",
+      "nav.projects": "Projects",
+      "nav.certifications": "Certifications",
+      "nav.contact": "Contact",
+      // …и все остальные ключи вида "section.key": "Text"
+		"hero.91": "Contact",
+		"hero.90": "Bachelor's Degree",
+		"hero.89": "Information Technology",
+		"hero.88": "Front-End",
+		"hero.87": "Web Development",
+		"hero.86": "RHCSA",
+		"hero.85": "Red Hat Certified System Administrator",
+		"hero.84": "RHCE",
+		"hero.83": "Red Hat Certified Engineer",
+		"hero.82": "Education & Certifications",
+		"hero.81": "IP Telephony",
+		"hero.80": "Asterisk",
+		"hero.79": "Implemented Asterisk on server hardware, configured and connected communication devices",
+		"hero.78": "IP Telephony",
+		"hero.77": "Technical Support",
+		"hero.76": "Website",
+		"hero.75": "Created website, leased hosting, leased domain",
+		"hero.74": "Business Website",
+		"hero.73": "SLA Reporting",
+		"hero.72": "Telegram Alerts",
+		"hero.71": "Zabbix + Grafana for 200+ devices",
+		"hero.70": "Monitoring System",
+		"hero.69": "Debian",
+		"hero.68": "Ubuntu",
+		"hero.67": "Cisco",
+		"hero.66": "Connected servers, switches, PCs, created an internal network, installed specialized Linux software and configured it for full operation",
+		"hero.65": "Special Project",
+		"hero.64": "Wireshark",
+		"hero.63": "Bash Script",
+		"hero.62": "Acronis",
+		"hero.61": "VMware",
+		"hero.60": "Proxmox",
+		"hero.59": "Conducted cybersecurity tests and provided recommendations, trained staff on security policies",
+		"hero.58": "Designed secure corporate Wi-Fi and VLAN networks, analyzed traffic (Unifi, Wireshark)",
+		"hero.57": "Developed and integrated backup automation scripts (Acronis, Bash script, etc.)",
+		"hero.56": "Managed and configured servers and network equipment (Linux/Windows, Proxmox, VMware)",
+		"hero.55": "Corporate Solution",
+		"hero.54": "Result: 40% Cost Reduction",
+		"hero.53": "High Availability",
+		"hero.52": "Ceph Storage",
+		"hero.51": "Migrated 50+ servers to a Proxmox cluster",
+		"hero.50": "Server Consolidation",
+		"hero.49": "Sample Projects",
+		"hero.48": "Flashing Microcontrollers",
+		"hero.47": "Working with Soldering Stations",
+		"hero.46": "Troubleshooting Hardware Issues",
+		"hero.45": "Diagnostics & Repair",
+		"hero.44": "Acronis Backup Automation",
+		"hero.43": "Arduino IoT",
+		"hero.42": "PowerShell",
+		"hero.41": "Bash",
+		"hero.40": "Automation & Scripting",
+		"hero.39": "Knowledge of various programming languages (e.g., Python, JavaScript, Delphi, C++) for developing different applications",
+		"hero.38": "Programming Languages",
+		"hero.37": "Knowledge of various operating systems (e.g., Windows, Linux, macOS) for administration and development",
+		"hero.36": "Operating Systems",
+		"hero.35": "Ability to work with various databases (e.g., SQL, NoSQL) for data storage and processing",
+		"hero.34": "Databases",
+		"hero.33": "Ability to develop software, including frontend, backend, and mobile applications",
+		"hero.32": "Software Development",
+		"hero.31": "Knowledge of principles and methods for protecting information from cyber threats and hacker attacks",
+		"hero.30": "Information Security",
+		"hero.29": "Ability to analyze system problems and propose solutions",
+		"hero.28": "System Analysis",
+		"hero.27": "Ability to work in a team, interact effectively with colleagues, and achieve common goals",
+		"hero.26": "Teamwork",
+		"hero.25": "Ability to clearly and concisely express thoughts, both orally and in writing, for effective interaction with colleagues, clients, and management",
+		"hero.24": "Communication",
+		"hero.23": "Ability to generate new ideas and approaches to problem-solving",
+		"hero.22": "Creativity & Innovative Thinking",
+		"hero.21": "Zabbix, Prometheus",
+		"hero.20": "Ansible, PowerShell",
+		"hero.19": "Linux/Windows Server",
+		"hero.18": "Administration",
+		"hero.17": "Ability to analyze complex situations, identify problems, and propose solutions",
+		"hero.16": "Analytical Thinking",
+		"hero.15": "Willingness to continuously improve skills and stay up-to-date with new IT technologies and trends",
+		"hero.14": "Continuous Learning",
+		"hero.13": "Docker & Kubernetes",
+		"hero.12": "VMware vSphere: High Availability",
+		"hero.11": "Proxmox VE: Ceph Clusters",
+		"hero.10": "Virtualization",
+		"hero.9": "Key Competencies",
+		"hero.8": "I am a well-rounded IT specialist with over 10 years of experience in information technology. Proficient in Linux systems, Windows OS, experience with Proxmox, VMware, networking, and cybersecurity tools. Quick to learn new technologies and eager to grow in software testing, IT security, and other fields essential for collaboration and development as a versatile specialist. Fluent in Russian, Azerbaijani, and English (B2).",
+		"hero.7": "Automation",
+		"hero.6": "Networking",
+		"hero.5": "Security",
+		"hero.4": "Virtualization",
+		"hero.3": "Versatile IT Specialist | Infrastructure Architect | Technical Expert",
+		"hero.1": "Professional Portfolio"
+    },
+    ru: {
+      "nav.about": "Обо мне",
+      "nav.competencies": "Компетенции",
+      "nav.projects": "Проекты",
+      "nav.certifications": "Сертификаты",
+      "nav.contact": "Контакты",
+      // …тут все переводы на русский
+		"hero.91": "Контакты",
+		//"hero.90": "Bachelor's degree",
+		//"hero.89": "Information Technology",
+		//"hero.88": "Front-End",
+		//"hero.87": "Web Development",
+		//"hero.86": "RHCSA",
+		//"hero.85": "Red Hat Certified System Administrator",
+		//"hero.84": "RHCE",
+		//"hero.83": "Red Hat Certified Engineer",
+		"hero.82": "Образование и сертификаты",
+		//"hero.81": "IP telephony",
+		//"hero.80": "Asterisk",
+		"hero.79": "Внедрение Asterisk в серверное оборудование, настройка и подключение устройств для связи",
+		"hero.78": "ИП Телефония",
+		//"hero.77": "Technical support",
+		//"hero.76": "Website",
+		"hero.75": "Создание сайта, аренда хостинга, аренда домена",
+		"hero.74": "Сайт для бизнеса",
+		//"hero.73": "SLA Reporting",
+		//"hero.72": "Telegram Alerts",
+		"hero.71": "Zabbix + Grafana для 200+ устройств",
+		"hero.70": "Система мониторинга",
+		//"hero.69": "Debian",
+		//"hero.68": "Ubuntu",
+		//"hero.67": "Cisco",
+		"hero.66": "Подключение серверов, свитчей, пк, создание внутренней сети, установка специализированного програмного обеспечения на Linux системе и настройка для полноценного функционирования.",
+		"hero.65": "Специальный проект",
+		//"hero.64": "Wireshark",
+		//"hero.63": "Bash script",
+		//"hero.62": "Acronis",
+		//"hero.61": "VMware",
+		//"hero.60": "Proxmox",
+		"hero.59": "Проведение тестов и рекомендации по кибербезопасности, обучение сотрудников защитным политикам",
+		"hero.58": "Проектирование безопасных корпоративных Wi-Fi и Vlan-сетей, анализ трафика (Unifi, Wireshark).",
+		"hero.57": "Разработка и интеграция скриптов для автоматизации резервного копирования (Acronis, Bash script, etc.)",
+		"hero.56": "Ведение и настройка серверов и сетевого оборудования (Linux/Windows, Proxmox, VMware).",
+		"hero.55": "Корпоративное решение",
+		"hero.54": "Результат: Снижение затрат на 40%",
+		//"hero.53": "High Availability",
+		//"hero.52": "Ceph Storage",
+		"hero.51": "Миграция 50+ серверов в Proxmox кластер",
+		"hero.50": "Консолидация серверов",
+		"hero.49": "Примеры проектов",
+		"hero.48": "Прошивка микроконтроллеров",
+		"hero.47": "Работа с паяльными станциями",
+		"hero.46": "Выявление неисправности",
+		"hero.45": "Диагностика & ремонт",
+		//"hero.44": "Acronis backup automation",
+		//"hero.43": "Arduino IoT",
+		//"hero.42": "PowerShell",
+		//"hero.41": "Bash",
+		"hero.40": "Автоматизациа & скрипты",
+		"hero.39": "Знание различных языков программирования (например, Python, JavaScript, Delphi, C++) для разработки различных приложений",
+		"hero.38": "Языки программирования",
+		"hero.37": "Знание различных операционных систем (например, Windows, Linux, macOS) для администрирования и разработки",
+		"hero.36": "Операционные системы",
+		"hero.35": "Умение работать с различными базами данных (например, SQL, NoSQL) для хранения и обработки данных",
+		"hero.34": "Базы данных",
+		"hero.33": "Умение разрабатывать программное обеспечение, включая фронтенд, бэкенд, и мобильные приложения",
+		"hero.32": "Разработка программного обеспечения",
+		"hero.31": "Знание принципов и методов защиты информации от киберугроз и хакерских атак",
+		"hero.30": "Информационная безопасность",
+		"hero.29": "Способность анализировать системные проблемы и предлагать решения",
+		"hero.28": "Системный анализ",
+		"hero.27": "Умение работать в команде, эффективно взаимодействовать с коллегами и добиваться общих целей",
+		"hero.26": "Работа в команде",
+		"hero.25": "Умение ясно и четко выражать свои мысли, как устно, так и письменно, для эффективного взаимодействия с коллегами, клиентами и руководством",
+		"hero.24": "Коммуникация",
+		"hero.23": "Способность генерировать новые идеи и подходы к решению задач",
+		"hero.22": "Креативность и инновационное мышление",
+		//"hero.21": "Zabbix, Prometheus",
+		//"hero.20": "Ansible, PowerShell",
+		//"hero.19": "Linux/Windows Server",
+		"hero.18": "Администрирование",
+		"hero.17": "Способность анализировать сложные ситуации, выявлять проблемы и предлагать решения.",
+		"hero.16": "Аналитическое мышление",
+		"hero.15": "Готовность постоянно повышать свои знания и навыки, следить за новыми технологиями и тенденциями в ИТ",
+		"hero.14": "Умение обучаться и развиваться",
+		//"hero.13": "Docker & Kubernetes",
+		//"hero.12": "VMware vSphere: High Availability",
+		//"hero.11": "Proxmox VE: кластеры с Ceph",
+		"hero.10": "Виртуализация",
+		"hero.9": "Ключевые компетенции",
+		"hero.8": "Я - всесторонне развитый IT-специолист с более чем 10 летним опытом в сфере информационной технологии. Имею хорошие знания Linux-систем, Windows ОС, опыт работы с Proxmox, VMware, сетями и инструментами кибербезопасности. Быстро осваиваю новые технологии и готов развиваться в тестировании ПО, ИТ-безопасности и в других направлениях которые необходимы и полезны для сотрудничества и развития как специалист разного направления. Свободно говорю на русском, азербайджанском и знания английского(B2).",
+		"hero.7": "Автоматизация",
+		"hero.6": "Сети",
+		"hero.5": "Безопасность",
+		"hero.4": "Виртуализация",
+		"hero.3": "Универсальный IT-специалист | Архитектор инфраструктур | Технический эксперт",
+		"hero.1": "Профессиональное портфолио",
+    },
+    az: {
+      "nav.about": "Haqqımda",
+      "nav.competencies": "Kompetensiyalar",
+      "nav.projects": "Layihələr",
+      "nav.certifications": "Sertifikatlar",
+      "nav.contact": "Əlaqə",
+      // …тут переводы на азербайджанский
+		"hero.91": "Əlaqə",
+		//"hero.90": "Bakalavr dərəcəsi",
+		//"hero.89": "İnformasiya Texnologiyaları",
+		//"hero.88": "Ön Uç",
+		//"hero.87": "Veb İnkişafı",
+		//"hero.86": "RHCSA",
+		//"hero.85": "Red Hat Sertifikatlı Sistem Administratoru",
+		//"hero.84": "RHCE",
+		//"hero.83": "Red Hat Sertifikatlı Mühəndis",
+		"hero.82": "Təhsil və Sertifikatlar",
+		"hero.81": "IP Telefoniya",
+		//"hero.80": "Asterisk",
+		"hero.79": "Asterisk PBX-i server avadanlığına tətbiq etmə, cihazların konfiqurasiyası və qoşulması",
+		"hero.78": "IP Telefoniya",
+		"hero.77": "Texniki Dəstək",
+		"hero.76": "Vebsayt",
+		"hero.75": "Vebsayt yaradılması, hostinq kirayəsi, domen kirayəsi",
+		"hero.74": "Biznes üçün Vebsayt",
+		"hero.73": "SLA hesabatlığı",
+		"hero.72": "Telegram Bildirişləri",
+		"hero.71": "Zabbix + Grafana 200+ cihaz üçün",
+		"hero.70": "Monitorinq Sistemi",
+		"hero.69": "Debian",
+		"hero.68": "Ubuntu",
+		"hero.67": "Cisco",
+		"hero.66": "Serverlərin, switchlərin, PC-lərin qoşulması, daxili şəbəkənin yaradılması, xüsusi Linux proqram təminatının quraşdırılması və tam işlək vəziyyətə gətirilməsi",
+		"hero.65": "Xüsusi Layihə",
+		"hero.64": "Wireshark",
+		"hero.63": "Bash Skripti",
+		"hero.62": "Acronis",
+		"hero.61": "VMware",
+		"hero.60": "Proxmox",
+		"hero.59": "Kibertəhlükəsizlik testlərinin aparılması və tövsiyələrin verilməsi, işçilərin təhlükəsizlik siyasəti üzrə təlimi",
+		"hero.58": "Təhlükəsiz korporativ Wi-Fi və VLAN şəbəkələrinin layihələndirilməsi, trafik analizinin aparılması (Unifi, Wireshark)",
+		"hero.57": "Ehtiyat nüsxə avtomatlaşdırma skriptlərinin hazırlanması və inteqrasiyası (Acronis, Bash skripti və s.)",
+		"hero.56": "Serverlərin və şəbəkə avadanlığının idarə edilməsi və konfiqurasiyası (Linux/Windows, Proxmox, VMware)",
+		"hero.55": "Korporativ Həll",
+		"hero.54": "Nəticə: Xərclərin 40% azaldılması",
+		"hero.53": "Yüksək Mövcudluq",
+		"hero.52": "Ceph Saxlama",
+		"hero.51": "50+ serverin Proxmox klasterinə miqrasiyası",
+		"hero.50": "Serverlərin Konsolidasiyası",
+		"hero.49": "Layihə Nümunələri",
+		"hero.48": "Mikrokontrollerlərin Proqramlaşdırılması",
+		"hero.47": "Qaynaq stansiyaları ilə işləmək",
+		"hero.46": "Aparat problemlərinin diaqnostikası",
+		"hero.45": "Diaqnostika və Təmir",
+		"hero.44": "Acronis Ehtiyat Nüsxə Avtomatlaşdırması",
+		"hero.43": "Arduino IoT",
+		"hero.42": "PowerShell",
+		"hero.41": "Bash",
+		"hero.40": "Avtomatlaşdırma və Skriptləşdirmə",
+		"hero.39": "Müxtəlif tətbiqlərin hazırlanması üçün müxtəlif proqramlaşdırma dilləri üzrə biliklər (məsələn, Python, JavaScript, Delphi, C++)",
+		"hero.38": "Proqramlaşdırma Dilləri",
+		"hero.37": "İdarəetmə və tətbiqetmə üçün müxtəlif əməliyyat sistemləri üzrə biliklər (məsələn, Windows, Linux, macOS)",
+		"hero.36": "Əməliyyat Sistemləri",
+		"hero.35": "Məlumatların saxlanması və emalı üçün müxtəlif verilənlər bazaları ilə işləmək bacarığı (məsələn, SQL, NoSQL)",
+		"hero.34": "Verilənlər Bazaları",
+		"hero.33": "Proqram təminatı, o cumlədən Front-End, Backend, mobil tətbiqi yaratmaq ücün bilik və bacarıqlar ",
+		"hero.32": "Proqram təminatının yaradılması",
+		"hero.31": "İnformasiya təhlükəsizliyinin təmin edilməsi prinsipləri və metodları üzrə bilik",
+		"hero.30": "İnformasiya Təhlükəsizliyi",
+		"hero.29": "Sistem problemlərini analiz edib həll yolları təklif etmək bacarığı",
+		"hero.28": "Sistem Analizi",
+		"hero.27": "Komandada işləmək, həmkarlarla effektiv əməkdaşlıq etmək və ümumi məqsədlərə çatmaq bacarığı",
+		"hero.26": "Komanda işi",
+		"hero.25": "Rəhbərliklə, həmkarlarla və müştərilərlə effektiv ünsiyyət üçün düşüncələri həm şifahi, həm də yazılı formada aydın və qısa ifadə etmək bacarığı",
+		"hero.24": "Ünsiyyət",
+		"hero.23": "Tapşırıqları yeni ideyalar və yanaşmalar tətbiq edərək həll etmək bacarığı",
+		"hero.22": "Yaradıcılıq və İnnovativ Düşüncə",
+		"hero.21": "Zabbix, Prometheus",
+		"hero.20": "Ansible, PowerShell",
+		"hero.19": "Linux/Windows Server",
+		"hero.18": "İdarəetmə",
+		"hero.17": "Mürəkkəb vəziyyətləri analiz etmək, problemləri müəyyənləşdirmək və həll yolları təklif etmək bacarığı",
+		"hero.16": "Analitik Düşüncə",
+		"hero.15": "Bacarıqları davamlı təkmilləşdirmək və yeni IT texnologiyaları və trendlərindən xəbərdar olmaq istəyi",
+		"hero.14": "Davamlı Öyrənmə",
+		"hero.13": "Docker & Kubernetes",
+		"hero.12": "VMware vSphere: Yüksək Mövcudluq",
+		"hero.11": "Proxmox VE: Ceph Kümələri",
+		"hero.10": "Virtualizasiya",
+		"hero.9": "Əsas Kompetensiyalar",
+		"hero.8": "Mən informasiya texnologiyaları sahəsində 10 ildən çox təcrübəyə malik çox yönlü IT mütəxəssisiyəm. Linux sistemləri, Windows ƏS, Proxmox, VMware, şəbəkələr və kiber təhlükəsizlik alətləri üzrə biliklərə malikəm. Yeni texnologiyaları sürətlə öyrənirəm və proqram təminatının testləşdirilməsi, IT təhlükəsizliyi və digər vacib sahələrdə inkişaf etməyə hazıram. Rus və Azərbaycan dillərində mükəmməl, İngilis dilini (B2)  səviyyəsində bilirəm.",
+		"hero.7": "Avtomatlaşdırma",
+		"hero.6": "Şəbəkələşdirmə",
+		"hero.5": "Təhlükəsizlik",
+		"hero.4": "Virtualizasiya",
+		"hero.3": "Çox yönlü IT Mütəxəssis | İnfrastruktur Memarı | Texniki Ekspert",
+		"hero.1": "Peşəkar Portfel"
+    }
+  };
+
+  let currentLang = 'en';
+  const btn  = document.getElementById('lang-btn');
+  const flag = document.getElementById('lang-flag');
+
+  btn.addEventListener('click', () => {
+    const order = ['en','ru','az'];
+    let idx = order.indexOf(currentLang);
+    currentLang = order[(idx+1)%order.length];
+    flag.textContent = currentLang==='en'?'🇬🇧':currentLang==='ru'?'🇷🇺':'🇦🇿';
+    document.documentElement.lang = currentLang;
+    document.querySelectorAll('[data-translate]').forEach(el=>{
+      const key = el.getAttribute('data-translate');
+      if(translations[currentLang][key]) {
+        el.textContent = translations[currentLang][key];
+      }
+    });
+  });
+        // Анимация частиц
+        class Particle {
+            constructor() {
+                this.reset(true);
+            }
+            reset(initial = false) {
+                this.x = initial ? Math.random() * canvas.width : -50;
+                this.y = initial ? Math.random() * canvas.height : Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 2;
+                this.speedY = (Math.random() - 0.5) * 2;
+                this.alpha = 0.5;
+            }
+            update() {
+                if (mouse.x && mouse.y) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        const force = (100 - distance) / 50;
+                        this.x -= dx * force * 0.03;
+                        this.y -= dy * force * 0.03;
+                    }
+                }
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width + 50 || this.x < -50 || this.y > canvas.height + 50 || this.y < -50) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = `rgba(100, 255, 218, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        let canvas, ctx, particles, mouse;
+        function initCanvas() {
+            canvas = document.getElementById('canvas');
+            ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            mouse = { x: null, y: null };
+        }
+        function animate() {
+            ctx.fillStyle = '#0a192f';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                p.update(); p.draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[j].x - p.x;
+                    const dy = particles[j].y - p.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(100, 255, 218, ${0.4 - dist/375})`;
+                        ctx.lineWidth = 0.4;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('resize', () => {
+            initCanvas();
+            particles.forEach(p => p.reset(true));
+        });
+        window.addEventListener('load', () => {
+            initCanvas();
+            particles = Array.from({ length: 150 }, () => new Particle());
+            animate();
+        });
+    </script>
+</body>
+</html>
